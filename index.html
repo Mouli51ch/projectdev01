@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouli's Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --text-color: #ecf0f1;
+            --background-color: #34495e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: rgba(44, 62, 80, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.5s;
+            animation-fill-mode: both;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--secondary-color);
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--accent-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 25%;
+        }
+
+        .skills {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .skill {
+            text-align: center;
+            margin: 20px;
+            transition: transform 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            width: 200px;
+        }
+
+        .skill:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            opacity: 0.8;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .project:hover::before {
+            opacity: 0.9;
+        }
+
+        .project-content {
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-content h3 {
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        #contact {
+            background-color: var(--primary-color);
+        }
+
+        #contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #contact-form input,
+        #contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+        }
+
+        #contact-form input::placeholder,
+        #contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        #contact-form button {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">SKEPSIS</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to My Sexy  Portfolio</h1>
+            <p>Crafting stunning web experiences with pure CSS magic</p>
+            <a href="#contact" class="btn">Get in touch</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+            </div>
+            <p>As a passionate 3rd-year student diving into the world of web development, I'm on an exciting journey to master the art of creating beautiful and functional websites. My focus is on pushing the boundaries of what's possible with CSS, crafting visually stunning and interactive user experiences without relying on images. Through my projects, I aim to demonstrate the power of modern CSS techniques and inspire others to explore the creative possibilities of web design.</p>
+
+    <section id="skills" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Skills</h2>
+            </div>
+            <div class="skills">
+                <div class="skill">
+                    <div class="skill-icon">&lt;/&gt;</div>
+                    <h3>HTML5</h3>
+                    <p>Crafting semantic and accessible markup</p>
+                </div>
+                <div class="skill">
+                    <div class="skill-icon">{}</div>
+                    <h3>CSS3</h3>
+                    <p>Creating stunning layouts and animations</p>
+                </div>
+                <div class="skill">
+                    <div class="skill-icon">JS</div>
+                    <h3>JavaScript</h3>
+                    <p>Building interactive and dynamic experiences</p>
+                </div>
+                <div class="skill">
+                    <div class="skill-icon">&#9733;</div>
+                    <h3>UI/UX Design</h3>
+                    <p>Designing intuitive and appealing interfaces</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Projects</h2>
+            </div>
+            <div class="projects">
+                <div class="project">
+                    <div class="project-content">
+                        <h3>CSS Art Gallery</h3>
+                        <p>A collection of pure CSS artworks showcasing the creative potential of modern CSS techniques.</p>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="project-content">
+                        <h3>Interactive Portfolio</h3>
+                        <p>A dynamic and engaging portfolio website built with HTML, CSS, and JavaScript, featuring smooth animations and creative layouts.</p>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="project-content">
+                        <h3>CSS Game</h3>
+                        <p>A fun and challenging game created entirely with CSS and minimal JavaScript, demonstrating the power of CSS for interactivity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get in Touch</h2>
+            </div>
+            <form id="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Sexy CSS Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Change header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(44, 62, 80, 0.9)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.backgroundColor = 'transparent';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Simple form submission (you'll need to implement the backend)
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            e.target.reset();
+        });
+
+        // Animate skills on scroll
+        const skills = document.querySelectorAll('.skill');
+        const animateSkills = () => {
+            const triggerBottom = window.innerHeight / 5 * 4;
+            skills.forEach(skill => {
+                const skillTop = skill.getBoundingClientRect().top;
+                if (skillTop < triggerBottom) {
+                    skill.style.opacity = '1';
+                    skill.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateSkills);
+
+        // Initialize skill animations
+        skills.forEach(skill => {
+            skill.style.opacity = '0';
+            skill.style.transform = 'translateY(20px)';
+            skill.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+
+        // Trigger initial animations
+        animateSkills();
+
+        // Animate projects on hover
+        const projects = document.querySelectorAll('.project');
+        projects.forEach(project => {
+            project.addEventListener('mouseenter', () => {
+                project.style.transform = 'scale(1.05)';
+            });
+            project.addEventListener('mouseleave', () => {
+                project.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
